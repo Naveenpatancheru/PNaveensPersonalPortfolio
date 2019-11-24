@@ -1,0 +1,157 @@
+
+
+ 
+<div class="text-center" style="padding:10px 0" >
+
+    <div class="container ">
+        <div class="text-right" *ngIf="showQuestion">
+        
+                <button type="submit" (click)="toggle()" class="btn btn-success fontFamily"><span class="glyphicon glyphicon-envelope"></span> &nbsp; Check Answer Here </button>
+            </div>
+            <div class="text-right" *ngIf="showAns">
+                  
+                        <button type="submit" (click)="toggleAns()" class="btn btn-success fontFamily"><span class="fa fa-question-circle"></span> &nbsp; Ask Question Here </button>
+                    </div>
+        <!-- <div class="contact-image">
+                
+           <img src="assets/Images/greenrocket.png" alt="rocket_contact"/> 
+           
+        </div> -->
+        <form #form="ngForm" (submit)="onSubmit(form)">
+            
+            <!-- <h3 id="lblQuestion" *ngIf="showQuestion"> Drop Me a Question</h3> 
+            <h3 id="lblAnswer" *ngIf="showAns"> Check the Answer</h3>  -->
+            <h3 id="lblQuestion" *ngIf="showQuestion"> </h3> 
+            <h3 id="lblAnswer" *ngIf="showAns"> </h3>
+            <div style="font: size 4px;" class="w-25 p-3 alert alert-warning fade in" role="alert" *ngIf="showQuestion">
+                   
+                           <p style="font: size 3px; font-family: 'Exo 2', sans-serif;;line-height: 1px;">Question : &nbsp;&nbsp;</p> <p style="font: size 8px; font-family: 'Exo 2', sans-serif;"  > Please remember the Id if you are asking anonymously </p>
+                        
+            </div> 
+
+
+           
+           <div class="row" id="divQuestion" *ngIf="showQuestion"> 
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input  name="Id" #Id="ngModel" [(ngModel)]="service.formData.Id" class="form-control" >
+                    </div>
+                    <div class="form-group">
+                        <div class="mylabel">
+                       <input type="checkbox"  (change)="checkAnony()" id="chkAnony">
+                       <div class="slidinggroove"></div>
+                       <label class="mylabel" for="chkAnony" name="Anonymously">
+                            
+                            <p class="labelterm fontFamily" *ngIf="isCheckedAnony"> Anonymously <i class="fa fa-eye"></i></p> 
+                            <p class="labelterm fontFamily" *ngIf="!isCheckedAnony"> Anonymously<i class="fa fa-eye-slash"> </i></p> 
+                       </label>
+                    </div>
+                    </div>
+                    <div class="form-group" *ngIf="isCheckedAnony" >
+                        <input  name="FirstName" placeholder="Full Name" #FirstName="ngModel" [(ngModel)]="service.formData.FirstName" class="form-control fontFamily">
+                    </div>
+                    <div class="form-group" style="display:none" >
+                            <input  name="answer" placeholder="Answer" #FirstName="ngModel" [(ngModel)]="service.formData.answer" class="form-control fontFamily">
+                        </div>
+                    <div class="form-group" *ngIf="isCheckedAnony">
+                            
+                        <input  name="Email"  placeholder="Email" #Email="ngModel" [(ngModel)]="service.formData.Email" class="form-control fontFamily">
+                    </div>
+                    <div class="form-group" *ngIf="isCheckedAnony">
+                        <input  name="phoneNumber" placeholder="PhoneNumber"  #PhoneNumber="ngModel" [(ngModel)]="service.formData.PhoneNumber" class="form-control fontFamily">
+                    </div>
+                    <div class="form-group hidden-lg hidden-md hidden-sm" >
+                        <textarea name="Question" style="width: 100%; height: 170px;" placeholder="Your Question"   #Question="ngModel" rows="3" [(ngModel)]="service.formData.question" class="form-control fontFamily" ></textarea>
+                    </div>
+                    <div class="form-group">
+                            <button type="submit" click="btnQuestion(form)" class="btn btn-success fontFamily">Question <i class="fa fa-paper-plane-o"></i></button> 
+                      
+                    </div>
+                   
+                </div>
+               
+                <div class="col-md-6 hidden-xs">
+                    <div class="form-group">
+                        <!-- <textarea name="txtMsg" class="form-control" placeholder="Your Message *" style="width: 100%; height: 170px;"></textarea> -->
+                        <textarea name="Question" style="width: 100%; height: 170px;" placeholder="Your Question"   #Question="ngModel" rows="3" [(ngModel)]="service.formData.question" class="form-control" ></textarea>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="row"  *ngIf="show">
+                <div class="col-md-8">
+                        <div class="alert alert-success fade in">
+                                <a href="#" class="close" data-dismiss="alert">&times;</a>
+                                <strong>{{msg1}}</strong> {{msg2}}
+                            </div>
+                  </div>
+                </div>
+
+
+
+                <div id="divAns" *ngIf="showAns"> 
+                        <div id="container_1">
+                               
+                                <div class="col-md-2">
+                                        
+                                 </div>
+                                 <div class="col-md-8">
+                                     <div class="row">
+                                            <div class="col-md-6">
+                                                    <input  name="EnterID" #Id="ngModel" placeholder="EnterID" [(ngModel)]="service.formData.Id" class="form-control" >
+                                                </div>
+                                                <div class="col-md-6" style="text-align: left">
+                                                        <div class="form-group">
+                                                                <button type="submit" (click)="getAnswer(form)" class="btn btn-success fontFamily">Get Answer <i class="fa fa-paper-plane-o"></i></button>
+                                                                <!-- <input type="submit" name="btnSubmit" class="btn btn-success" value="Ask Question" /> -->
+                                                            </div>
+                                                    </div>
+
+                                     </div>
+                                       
+                                 </div><br>
+                                 <br>
+                                 <div *ngIf="question.answer">
+
+                               
+                                 <blockquote style="font: size 7px;" class="alert alert-warning fade in" role="alert">
+                                 <!-- <blockquote style="font: size 8px;" class="alert alert-success fade in"> -->
+                                        <p style="font: size 8px;font-family:Comic Sans MS;">Question : &nbsp;&nbsp;</p> <p style="font: size 8px;font-family:Verdana, Geneva, Tahoma, sans-serif;"  > {{question?.question}} </p>
+                                     
+                                      </blockquote>
+                                
+                                      <br>
+                                  
+                                     
+                                            <blockquote style="font: size 8px;" class="alert alert-success fade in">
+                                                  
+                                                   <p style="font: size 8px;font-family:Comic Sans MS;">Answer : &nbsp;&nbsp;</p>
+                                                   <p class="quotation-mark">
+                                                        “
+                                                      </p> <p style="font: size 8px;font-family:Verdana, Geneva, Tahoma, sans-serif;"  > {{question?.answer}} </p>
+                                                   <p class="blog-post-bottom pull-right" style="font: size 5px;font-family:Comic Sans MS;">
+                                                        <span class="badge quote-badge" ></span> --Naveen Patancheru ❤
+                                                      </p>
+                                                      <br>
+                                                      <p >&nbsp;&nbsp;</p>
+                                                 </blockquote>
+                                                </div>
+                                     
+                                 <div class="col-md-2">
+                                       
+                                 </div>
+                                 
+                </div>
+            </div>
+
+        </form>
+        
+    </div>
+   
+    
+  </div> 
+
+
+
+        
