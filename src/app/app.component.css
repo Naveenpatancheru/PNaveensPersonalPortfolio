@@ -313,6 +313,13 @@ li a {
   font-size: 0.9em;
   
 }
+
+.icon-c {
+  color:#FF9900;
+  font-size: 1.0em;
+  font-weight: bold;
+  
+}
 #social-fb:hover {
   color: #3B5998;
 
